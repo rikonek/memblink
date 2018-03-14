@@ -1,4 +1,5 @@
 #include "config.h"
+#include "lang_pl.h"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <EEPROM.h>
@@ -6,11 +7,21 @@
 const unsigned int array_button[]={ BUTTON_PIN };
 const unsigned int array_led[]={ LED_PIN };
 
+LiquidCrystal_I2C lcd(LCD_ADDR, LCD_EN, LCD_RW, LCD_RS, LCD_D4, LCD_D5, LCD_D6, LCD_D7, LCD_BACKLIGHT_PIN, LCD_BACKLIGHT_POL);
+
 void setup() {
   #if DEBUG
     Serial.begin(SERIAL_BAUD_RATES);
     Serial.println("Memblink. Please wait...");
   #endif
+
+  lcd.begin(16,2); // LCD 16 chars 2 lines
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(LANG_DEVICE_NAME);
+  lcd.setCursor(0,1);
+  lcd.print(LANG_PLEASE_WAIT);
 
   for(uint8_t i=0; i<USED_BUTTON; i++)
   {
@@ -31,13 +42,22 @@ void loop() {
 //  char player[20]="Test";
 
   allLedOff();
-  ledOn(0); // Game 1 (memory) - player 1
-  ledOn(1); // Game 1 (memory) - player 2
-  ledOn(2); // Game 2 (reflex) - player 1
-  ledOn(3); // Game 2 (reflex) - player 2
+  for(uint8_t i=0; i<NUMBER_OF_GAMES; i++)
+  {
+    ledOn(i);
+  }
 
-  Serial.println("Ready. Choose game.");
-  while(game==-1 || game>3)
+  #if DEBUG
+    Serial.println("Choose a game.");
+  #endif
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(LANG_DEVICE_NAME);
+  lcd.setCursor(0,1);
+  lcd.print(LANG_CHOOSE_GAME);
+
+  while(game==-1 || game>=NUMBER_OF_GAMES)
   {
     game=readButton();
   }

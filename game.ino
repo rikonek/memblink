@@ -1,10 +1,35 @@
-void runG1P1()
+void runG1P1() // Game 1 (memory) - player 1
 {
-  Serial.println("Start G1P1");
+  if(resetButton())
+  {
+    writeScoreG1(EEPROM_G1P1_SCORE,0);
 
+    #if DEBUG
+      Serial.println("Cleared!");
+    #endif
+  
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print(LANG_CLEARED);
+
+    delay(1000);
+    return false;
+  }
   uint8_t best=readScoreG1(EEPROM_G1P1_SCORE);
-  Serial.print("The best: ");
-  Serial.println(best);
+
+  #if DEBUG
+    Serial.println("Memory");
+    Serial.print("The best result: ");
+    Serial.println(best);
+  #endif
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(LANG_GAME1_NAME);
+  lcd.setCursor(0,1);
+  lcd.print(LANG_THE_BEST);
+  lcd.print(" ");
+  lcd.print(best);
 
   randomSeed(millis());
   uint8_t sequence[GAME_MEMORY_SEQUENCE]={0};
@@ -22,57 +47,112 @@ void runG1P1()
     {
       round++;
       score++;
+
+      #if DEBUG
+        Serial.print("Score: ");
+        Serial.println(score);
+      #endif
+
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(LANG_GAME1_NAME);
+      lcd.setCursor(0,1);
+      lcd.print(LANG_SCORE);
+      lcd.print(" ");
+      lcd.print(score);
     }
     else
     {
       round=-1;
-      Serial.println("Game over!");
+      #if DEBUG
+        Serial.print("Game over! Score: ");
+        Serial.println(score);
+      #endif
+
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(LANG_GAME_OVER);
+      lcd.setCursor(0,1);
+      lcd.print(LANG_SCORE);
+      lcd.print(" ");
+      lcd.print(score);
+      delay(5000);
     }
   }
-  Serial.print("Your score: ");
-  Serial.println(score);
   if(score>best)
   {
-    Serial.println("You win!");
     writeScoreG1(EEPROM_G1P1_SCORE,score);
+
+    #if DEBUG
+      Serial.println("Game over! You win!");
+    #endif
+
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print(LANG_GAME_OVER);
+    lcd.setCursor(0,1);
+    lcd.print(LANG_GAME_OVER_WIN);
+
+    delay(5000);
   }
 }
 
 void showSequenceG1P1(const uint8_t *sequence, int16_t round)
 {
-  Serial.print("G1P1 - Show sequence: ");
+  #if DEBUG
+    Serial.print("Displayed sequence: ");
+  #endif
+
   allLedOff();
   for(uint8_t i=0; i<(round+1); i++)
   {
-    Serial.print(sequence[i]+1);
+    #if DEBUG
+      Serial.print(sequence[i]+1);
+    #endif
+
     ledOn(sequence[i]);
     delay(500);
     ledOff(sequence[i]);
     delay(500);
   }
-  Serial.println("");
+  #if DEBUG
+    Serial.println("");
+  #endif
 }
 
 bool checkSequenceG1P1(const uint8_t *sequence, int16_t round)
 {
-  Serial.print("G1P1 - Check sequence: ");
+  #if DEBUG
+    Serial.print("Entered sequence: ");
+  #endif
+
   uint8_t position=0;
   int8_t user=-1;
   for(uint8_t i=0; i<round+1; i++)
   {
     user=readButton();
-    Serial.print(user+1);
+
+    #if DEBUG
+      Serial.print(user+1);
+    #endif
+
     if(user==sequence[i])
     {
       user=-1;
     }
     else
     {
-      Serial.println(" mistake");
+      #if DEBUG
+        Serial.println(" <-- mistake");
+      #endif
+
       return false;
     }
   }
-  Serial.println("");
+  #if DEBUG
+    Serial.println("");
+  #endif
+
   return true;
 }
 

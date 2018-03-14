@@ -14,3 +14,16 @@ int8_t readButton()
   }
   return -1;
 }
+
+bool resetButton()
+{
+  if(USED_BUTTON>=4)
+  {
+    if(digitalRead(array_button[0])==LOW && digitalRead(array_button[1])==LOW && digitalRead(array_button[USED_BUTTON-2])==LOW && digitalRead(array_button[USED_BUTTON-1])==LOW)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+

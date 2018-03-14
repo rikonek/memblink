@@ -26,6 +26,10 @@ void allLedOff()
 
 void ledCountDown()
 {
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(LANG_READY);
+
   allLedOff();
   delay(500);
   allLedOn();
@@ -37,9 +41,19 @@ void ledCountDown()
   }
   for(uint8_t i=0; i<middle; i++)
   {
+    if((i+1)==middle)
+    {
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(LANG_START);
+    }
     ledOff(i);
     ledOff(USED_BUTTON-1-i);
     delay(500);
+    if((i+1)==middle)
+    {
+      delay(500);
+    }
   }
 }
 
