@@ -2,7 +2,7 @@ void runG1P1()
 {
   Serial.println("Start G1P1");
 
-  uint8_t best=EEPROM.read(0);
+  uint8_t best=readScoreG1(EEPROM_G1P1_SCORE);
   Serial.print("The best: ");
   Serial.println(best);
 
@@ -34,7 +34,7 @@ void runG1P1()
   if(score>best)
   {
     Serial.println("You win!");
-    EEPROM.write(0,score);
+    writeScoreG1(EEPROM_G1P1_SCORE,score);
   }
 }
 
@@ -76,3 +76,12 @@ bool checkSequenceG1P1(const uint8_t *sequence, int16_t round)
   return true;
 }
 
+uint8_t readScoreG1(uint16_t address)
+{
+  return EEPROM.read(address);
+}
+
+void writeScoreG1(uint16_t address, uint8_t score)
+{
+  return EEPROM.write(address, score);
+}
