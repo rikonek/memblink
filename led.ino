@@ -57,3 +57,14 @@ void ledCountDown()
   }
 }
 
+void allLedBlink(uint8_t repeat, uint16_t time)
+{
+  for(uint8_t i=0; i<repeat; i++)
+  {
+    allLedOn();
+    delay(time);
+    allLedOff();
+    delay(time);
+  }
+}
+
