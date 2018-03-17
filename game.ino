@@ -50,7 +50,9 @@ void runG1P1() // Game 1 (memory) - player 1
 
       #if DEBUG
         Serial.print("Score: ");
-        Serial.println(score);
+        Serial.print(score);
+        Serial.print("/");
+        Serial.println(GAME_MEMORY_SEQUENCE);
       #endif
 
       lcd.clear();
@@ -64,19 +66,6 @@ void runG1P1() // Game 1 (memory) - player 1
     else
     {
       round=-1;
-      #if DEBUG
-        Serial.print("Game over! Score: ");
-        Serial.println(score);
-      #endif
-
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print(LANG_GAME_OVER);
-      lcd.setCursor(0,1);
-      lcd.print(LANG_SCORE);
-      lcd.print(" ");
-      lcd.print(score);
-      delay(5000);
     }
   }
   if(score>best)
@@ -92,8 +81,31 @@ void runG1P1() // Game 1 (memory) - player 1
     lcd.print(LANG_GAME_OVER);
     lcd.setCursor(0,1);
     lcd.print(LANG_GAME_OVER_WIN);
+  }
+  else
+  {
+    #if DEBUG
+      Serial.print("Game over! Score: ");
+      Serial.println(score);
+    #endif
 
-    delay(5000);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print(LANG_GAME_OVER);
+    lcd.setCursor(0,1);
+    lcd.print(LANG_SCORE);
+    lcd.print(" ");
+    lcd.print(score);
+  }
+  if(round>-1)
+  {
+    allLedBlink(2,400);
+    delay(4200);
+  }
+  else // mistake
+  {
+    allLedBlink(2,100);
+    delay(4800);
   }
 }
 
@@ -123,7 +135,7 @@ void showSequenceG1P1(const uint8_t *sequence, int16_t round)
 bool checkSequenceG1P1(const uint8_t *sequence, int16_t round)
 {
   #if DEBUG
-    Serial.print("Entered sequence: ");
+    Serial.print("Entered sequence:   ");
   #endif
 
   uint8_t position=0;
