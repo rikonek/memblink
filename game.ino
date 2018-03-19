@@ -43,6 +43,7 @@ void runG1P1() // Game 1 (memory) - player 1
   }
 
   unsigned long time_start=millis();
+  unsigned long time_diff=0b11111111111111111111111111111111;
   int16_t round=0;
   uint8_t score=0;
   while(round>-1 && round<GAME_MEMORY_SEQUENCE)
@@ -50,6 +51,7 @@ void runG1P1() // Game 1 (memory) - player 1
     showSequenceG1P1(sequence, round);
     if(checkSequenceG1P1(sequence, round))
     {
+      time_diff=millis()-time_start;
       round++;
       score++;
 
@@ -59,7 +61,7 @@ void runG1P1() // Game 1 (memory) - player 1
         Serial.print("/");
         Serial.print(GAME_MEMORY_SEQUENCE);
         Serial.print(", time: ");
-        Serial.println(formatMillis(millis()-time_start));
+        Serial.println(formatMillis(time_diff));
       #endif
 
       lcd.clear();
@@ -75,7 +77,6 @@ void runG1P1() // Game 1 (memory) - player 1
       round=-1;
     }
   }
-  unsigned long time_diff=millis()-time_start;
   if(score>best.score || (score==best.score && time_diff<best.time))
   {
     theBest data;
@@ -98,7 +99,9 @@ void runG1P1() // Game 1 (memory) - player 1
   {
     #if DEBUG
       Serial.print("Game over! Score: ");
-      Serial.println(score);
+      Serial.print(score);
+      Serial.print(", time: ");
+      Serial.println(formatMillis(time_diff));
     #endif
 
     lcd.clear();
