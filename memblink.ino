@@ -9,6 +9,13 @@ const unsigned int array_led[]={ LED_PIN };
 
 LiquidCrystal_I2C lcd(LCD_ADDR, LCD_EN, LCD_RW, LCD_RS, LCD_D4, LCD_D5, LCD_D6, LCD_D7, LCD_BACKLIGHT_PIN, LCD_BACKLIGHT_POL);
 
+typedef struct theBest
+{
+  uint8_t score=0;
+  unsigned long time=0;
+  char player[EEPROM_PLAYER_LENGTH_NAME]={""};
+} theBest;
+
 void setup() {
   #if DEBUG
     Serial.begin(SERIAL_BAUD_RATES);

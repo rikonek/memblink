@@ -2,7 +2,8 @@ void runG1P1() // Game 1 (memory) - player 1
 {
   if(resetButton())
   {
-    writeScoreG1(EEPROM_G1P1_SCORE,0);
+    theBest data;
+    writeData(EEPROM_G1P1_SCORE, data);
 
     #if DEBUG
       Serial.println("Cleared!");
@@ -15,12 +16,15 @@ void runG1P1() // Game 1 (memory) - player 1
     delay(1000);
     return false;
   }
-  uint8_t best=readScoreG1(EEPROM_G1P1_SCORE);
+
+  theBest best=readData(EEPROM_G1P1_SCORE);
 
   #if DEBUG
     Serial.println("Memory");
     Serial.print("The best result: ");
-    Serial.println(best);
+    Serial.print(best.score);
+    Serial.print(", time: ");
+    Serial.println(formatMillis(best.time));
   #endif
 
   lcd.clear();
@@ -29,7 +33,7 @@ void runG1P1() // Game 1 (memory) - player 1
   lcd.setCursor(0,1);
   lcd.print(LANG_THE_BEST);
   lcd.print(" ");
-  lcd.print(best);
+  lcd.print(best.score);
 
   randomSeed(millis());
   uint8_t sequence[GAME_MEMORY_SEQUENCE]={0};
@@ -38,6 +42,7 @@ void runG1P1() // Game 1 (memory) - player 1
     sequence[i]=random(0,USED_BUTTON);
   }
 
+  unsigned long time_start=millis();
   int16_t round=0;
   uint8_t score=0;
   while(round>-1 && round<GAME_MEMORY_SEQUENCE)
@@ -52,7 +57,9 @@ void runG1P1() // Game 1 (memory) - player 1
         Serial.print("Score: ");
         Serial.print(score);
         Serial.print("/");
-        Serial.println(GAME_MEMORY_SEQUENCE);
+        Serial.print(GAME_MEMORY_SEQUENCE);
+        Serial.print(", time: ");
+        Serial.println(formatMillis(millis()-time_start));
       #endif
 
       lcd.clear();
@@ -68,9 +75,14 @@ void runG1P1() // Game 1 (memory) - player 1
       round=-1;
     }
   }
-  if(score>best)
+  unsigned long time_diff=millis()-time_start;
+  if(score>best.score || (score==best.score && time_diff<best.time))
   {
-    writeScoreG1(EEPROM_G1P1_SCORE,score);
+    theBest data;
+    data.score=score;
+    data.time=time_diff;
+//    data.player=
+    writeData(EEPROM_G1P1_SCORE, data);
 
     #if DEBUG
       Serial.println("Game over! You win!");
@@ -168,12 +180,14 @@ bool checkSequenceG1P1(const uint8_t *sequence, int16_t round)
   return true;
 }
 
-uint8_t readScoreG1(uint16_t address)
+theBest readData(uint16_t address)
 {
-  return EEPROM.read(address);
+  theBest data;
+  EEPROM.get(address, data);
+  return data;
 }
 
-void writeScoreG1(uint16_t address, uint8_t score)
+void writeData(uint16_t address, theBest data)
 {
-  return EEPROM.write(address, score);
+  EEPROM.put(address, data);
 }
