@@ -1,4 +1,4 @@
-void runG1P1() // Game 1 (memory) - player 1
+void runG1() // Game 1 (memory) - player 1
 {
   if(resetButton())
   {
@@ -52,8 +52,8 @@ void runG1P1() // Game 1 (memory) - player 1
   uint8_t score=0;
   while(round>-1 && round<GAME_MEMORY_SEQUENCE)
   {
-    showSequenceG1P1(sequence, round);
-    if(checkSequenceG1P1(sequence, round))
+    showSequenceG1(sequence, round);
+    if(checkSequenceG1(sequence, round))
     {
       time_diff=millis()-time_start;
       round++;
@@ -146,7 +146,7 @@ void runG1P1() // Game 1 (memory) - player 1
   }
 }
 
-void showSequenceG1P1(const uint8_t *sequence, int16_t round)
+void showSequenceG1(const uint8_t *sequence, int16_t round)
 {
   #if DEBUG
     Serial.print("Displayed sequence: ");
@@ -169,7 +169,7 @@ void showSequenceG1P1(const uint8_t *sequence, int16_t round)
   #endif
 }
 
-bool checkSequenceG1P1(const uint8_t *sequence, int16_t round)
+bool checkSequenceG1(const uint8_t *sequence, int16_t round)
 {
   #if DEBUG
     Serial.print("Entered sequence:   ");

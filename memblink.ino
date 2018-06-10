@@ -85,7 +85,7 @@ void loop() {
   switch(game)
   {
     case 0:
-      runG1P1();
+      runG1();
       break;
   }
 // Jeżeli wygrałeś to

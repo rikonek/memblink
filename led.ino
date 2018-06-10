@@ -27,7 +27,7 @@ void allLedOff()
 void ledCountDown()
 {
   lcd.clear();
-  lcd.setCursor(0, 0);
+  lcd.setCursor(LANG_READY_PADDING, 1);
   lcd.print(LANG_READY);
 
   allLedOff();
@@ -44,7 +44,7 @@ void ledCountDown()
     if ((i + 1) == middle)
     {
       lcd.clear();
-      lcd.setCursor(0, 0);
+      lcd.setCursor(LANG_START_PADDING, 1);
       lcd.print(LANG_START);
     }
     ledOff(i);

@@ -25,7 +25,7 @@ enum
 {
     NO_GAME_1,
     __MAX_GAME
-}
+};
 #define NUMBER_OF_GAMES __MAX_GAME
 
 #define SCORE_PLAYER_LENGTH_NAME 20
