@@ -10,7 +10,7 @@ void runG1P1() // Game 1 (memory) - player 1
     #endif
   
     lcd.clear();
-    lcd.setCursor(0,0);
+    lcd.setCursor(LANG_CLEARED_PADDING,1);
     lcd.print(LANG_CLEARED);
 
     delay(1000);
@@ -28,12 +28,16 @@ void runG1P1() // Game 1 (memory) - player 1
   #endif
 
   lcd.clear();
-  lcd.setCursor(0,0);
+  lcd.setCursor(LANG_GAME1_NAME_PADDING,0);
   lcd.print(LANG_GAME1_NAME);
-  lcd.setCursor(0,1);
+  lcd.setCursor(LANG_THE_BEST_PADDING,2);
   lcd.print(LANG_THE_BEST);
-  lcd.print(" ");
+  lcd.print(": ");
   lcd.print(best.score);
+  lcd.setCursor(LANG_THE_BEST_TIME_PADDING,3);
+  lcd.print(LANG_THE_BEST_TIME);
+  lcd.print(": ");
+  lcd.print(formatMillis(best.time));
 
   randomSeed(millis());
   uint8_t sequence[GAME_MEMORY_SEQUENCE]={0};
@@ -65,12 +69,16 @@ void runG1P1() // Game 1 (memory) - player 1
       #endif
 
       lcd.clear();
-      lcd.setCursor(0,0);
+      lcd.setCursor(LANG_GAME1_NAME_PADDING,0);
       lcd.print(LANG_GAME1_NAME);
-      lcd.setCursor(0,1);
+      lcd.setCursor(LANG_SCORE_PADDING,2);
       lcd.print(LANG_SCORE);
-      lcd.print(" ");
+      lcd.print(": ");
       lcd.print(score);
+      lcd.setCursor(LANG_SCORE_TIME_PADDING,3);
+      lcd.print(LANG_SCORE_TIME);
+      lcd.print(": ");
+      lcd.print(formatMillis(time_diff));
     }
     else
     {
@@ -90,9 +98,9 @@ void runG1P1() // Game 1 (memory) - player 1
     #endif
 
     lcd.clear();
-    lcd.setCursor(0,0);
+    lcd.setCursor(LANG_GAME_OVER_PADDING,0);
     lcd.print(LANG_GAME_OVER);
-    lcd.setCursor(0,1);
+    lcd.setCursor(LANG_GAME_OVER_WIN_PADDING,2);
     lcd.print(LANG_GAME_OVER_WIN);
   }
   else
@@ -100,17 +108,31 @@ void runG1P1() // Game 1 (memory) - player 1
     #if DEBUG
       Serial.print("Game over! Score: ");
       Serial.print(score);
-      Serial.print(", time: ");
-      Serial.println(formatMillis(time_diff));
+      if(score > 0)
+      {
+        Serial.print(", time: ");
+        Serial.println(formatMillis(time_diff));
+      }
+      else
+      {
+        Serial.println("");
+      }
     #endif
 
     lcd.clear();
-    lcd.setCursor(0,0);
+    lcd.setCursor(LANG_GAME_OVER_PADDING,0);
     lcd.print(LANG_GAME_OVER);
-    lcd.setCursor(0,1);
+    lcd.setCursor(LANG_SCORE_PADDING,2);
     lcd.print(LANG_SCORE);
-    lcd.print(" ");
+    lcd.print(": ");
     lcd.print(score);
+    if(score > 0)
+    {
+      lcd.setCursor(LANG_SCORE_TIME_PADDING,3);
+      lcd.print(LANG_SCORE_TIME);
+      lcd.print(": ");
+      lcd.print(formatMillis(time_diff));
+    }
   }
   if(round>-1)
   {

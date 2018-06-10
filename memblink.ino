@@ -22,12 +22,12 @@ void setup() {
     Serial.println("Memblink. Please wait...");
   #endif
 
-  lcd.begin(16,2); // LCD 16 chars 2 lines
+  lcd.begin(20,4); // LCD 20 chars 4 lines
   lcd.backlight();
   lcd.clear();
-  lcd.setCursor(0,0);
+  lcd.setCursor(LANG_DEVICE_NAME_PADDING,0);
   lcd.print(LANG_DEVICE_NAME);
-  lcd.setCursor(0,1);
+  lcd.setCursor(LANG_PLEASE_WAIT_PADDING,2);
   lcd.print(LANG_PLEASE_WAIT);
 
   for(uint8_t i=0; i<USED_BUTTON; i++)
@@ -59,10 +59,16 @@ void loop() {
   #endif
 
   lcd.clear();
-  lcd.setCursor(0,0);
+  lcd.setCursor(LANG_DEVICE_NAME_PADDING,0);
   lcd.print(LANG_DEVICE_NAME);
-  lcd.setCursor(0,1);
+  lcd.setCursor(LANG_CHOOSE_GAME_PADDING,2);
   lcd.print(LANG_CHOOSE_GAME);
+
+  #ifdef LANG_GAME1_NAME
+    lcd.setCursor(0,3);
+    lcd.print("1. ");
+    lcd.print(LANG_GAME1_NAME);
+  #endif
 
   while(game==-1 || game>=NUMBER_OF_GAMES)
   {
