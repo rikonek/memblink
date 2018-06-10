@@ -13,8 +13,13 @@ typedef struct theBest
 {
   uint8_t score=0;
   unsigned long time=0;
-  char player[EEPROM_PLAYER_LENGTH_NAME]={""};
+  char player[SCORE_PLAYER_LENGTH_NAME]={""};
 } theBest;
+
+typedef struct theScore
+{
+  theBest game[NUMBER_OF_GAMES];
+} theScore;
 
 void setup() {
   #if DEBUG

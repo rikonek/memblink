@@ -10,7 +10,7 @@ void ledOff(uint8_t led)
 
 void allLedOn()
 {
-  for(uint8_t i=0; i<USED_BUTTON; i++)
+  for (uint8_t i = 0; i < USED_BUTTON; i++)
   {
     digitalWrite(array_led[i], HIGH);
   }
@@ -18,7 +18,7 @@ void allLedOn()
 
 void allLedOff()
 {
-  for(uint8_t i=0; i<USED_BUTTON; i++)
+  for (uint8_t i = 0; i < USED_BUTTON; i++)
   {
     digitalWrite(array_led[i], LOW);
   }
@@ -27,30 +27,30 @@ void allLedOff()
 void ledCountDown()
 {
   lcd.clear();
-  lcd.setCursor(LANG_READY_PADDING,1);
+  lcd.setCursor(0, 0);
   lcd.print(LANG_READY);
 
   allLedOff();
   delay(500);
   allLedOn();
   delay(500);
-  uint8_t middle=USED_BUTTON/2;
-  if( (USED_BUTTON%2)>0 )
+  uint8_t middle = USED_BUTTON / 2;
+  if ((USED_BUTTON % 2) > 0)
   {
     middle++;
   }
-  for(uint8_t i=0; i<middle; i++)
+  for (uint8_t i = 0; i < middle; i++)
   {
-    if((i+1)==middle)
+    if ((i + 1) == middle)
     {
       lcd.clear();
-      lcd.setCursor(LANG_START_PADDING,1);
+      lcd.setCursor(0, 0);
       lcd.print(LANG_START);
     }
     ledOff(i);
-    ledOff(USED_BUTTON-1-i);
+    ledOff(USED_BUTTON - 1 - i);
     delay(500);
-    if((i+1)==middle)
+    if ((i + 1) == middle)
     {
       delay(500);
     }
@@ -59,7 +59,7 @@ void ledCountDown()
 
 void allLedBlink(uint8_t repeat, uint16_t time)
 {
-  for(uint8_t i=0; i<repeat; i++)
+  for (uint8_t i = 0; i < repeat; i++)
   {
     allLedOn();
     delay(time);
@@ -67,4 +67,3 @@ void allLedBlink(uint8_t repeat, uint16_t time)
     delay(time);
   }
 }
-

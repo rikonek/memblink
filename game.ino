@@ -3,7 +3,7 @@ void runG1P1() // Game 1 (memory) - player 1
   if(resetButton())
   {
     theBest data;
-    writeData(EEPROM_G1P1_SCORE, data);
+    writeGameScore(NO_GAME_1, data);
 
     #if DEBUG
       Serial.println("Cleared!");
@@ -17,7 +17,7 @@ void runG1P1() // Game 1 (memory) - player 1
     return false;
   }
 
-  theBest best=readData(EEPROM_G1P1_SCORE);
+  theBest best=readGameScore(NO_GAME_1);
 
   #if DEBUG
     Serial.println("Memory");
@@ -91,7 +91,7 @@ void runG1P1() // Game 1 (memory) - player 1
     data.score=score;
     data.time=time_diff;
 //    data.player=
-    writeData(EEPROM_G1P1_SCORE, data);
+    writeGameScore(NO_GAME_1, data);
 
     #if DEBUG
       Serial.println("Game over! You win!");
