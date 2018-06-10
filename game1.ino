@@ -24,20 +24,26 @@ void runG1() // Game 1 (memory) - player 1
     Serial.print("The best result: ");
     Serial.print(best.score);
     Serial.print(", time: ");
-    Serial.println(formatMillis(best.time));
+    Serial.print(formatMillis(best.time));
+    Serial.print(", player: ");
+    Serial.println(best.player);
   #endif
 
   lcd.clear();
   lcd.setCursor(LANG_GAME1_NAME_PADDING,0);
   lcd.print(LANG_GAME1_NAME);
-  lcd.setCursor(LANG_THE_BEST_PADDING,2);
+  lcd.setCursor(LANG_THE_BEST_PADDING,1);
   lcd.print(LANG_THE_BEST);
   lcd.print(": ");
   lcd.print(best.score);
-  lcd.setCursor(LANG_THE_BEST_TIME_PADDING,3);
+  lcd.setCursor(LANG_THE_BEST_TIME_PADDING,2);
   lcd.print(LANG_THE_BEST_TIME);
   lcd.print(": ");
   lcd.print(formatMillis(best.time));
+  lcd.setCursor(LANG_THE_BEST_PLAYER_PADDING,3);
+  lcd.print(LANG_THE_BEST_PLAYER);
+  lcd.print(": ");
+  lcd.print(best.player);
 
   randomSeed(millis());
   uint8_t sequence[GAME_MEMORY_SEQUENCE]={0};
@@ -87,12 +93,6 @@ void runG1() // Game 1 (memory) - player 1
   }
   if(score>best.score || (score==best.score && time_diff<best.time))
   {
-    theBest data;
-    data.score=score;
-    data.time=time_diff;
-//    data.player=
-    writeGameScore(NO_GAME_1, data);
-
     #if DEBUG
       Serial.println("Game over! You win!");
     #endif
@@ -102,6 +102,15 @@ void runG1() // Game 1 (memory) - player 1
     lcd.print(LANG_GAME_OVER);
     lcd.setCursor(LANG_GAME_OVER_WIN_PADDING,2);
     lcd.print(LANG_GAME_OVER_WIN);
+
+    theBest data;
+    data.score=score;
+    data.time=time_diff;
+    writeGameScore(NO_GAME_1, data);
+    allLedBlink(3,400);
+    delay(4200);
+    getPlayerName(data.player);
+    writeGameScore(NO_GAME_1, data);
   }
   else
   {
@@ -133,17 +142,19 @@ void runG1() // Game 1 (memory) - player 1
       lcd.print(": ");
       lcd.print(formatMillis(time_diff));
     }
-  }
-  if(round>-1)
-  {
-    allLedBlink(2,400);
-    delay(4200);
-  }
-  else // mistake
-  {
     allLedBlink(2,100);
     delay(4800);
   }
+//  if(round>-1)
+//  {
+//    allLedBlink(2,400);
+//    delay(4200);
+//  }
+//  else // mistake
+//  {
+//    allLedBlink(2,100);
+//    delay(4800);
+//  }
 }
 
 void showSequenceG1(const uint8_t *sequence, int16_t round)
@@ -203,16 +214,4 @@ bool checkSequenceG1(const uint8_t *sequence, int16_t round)
   #endif
 
   return true;
-}
-
-theBest readData(uint16_t address)
-{
-  theBest data;
-  EEPROM.get(address, data);
-  return data;
-}
-
-void writeData(uint16_t address, theBest data)
-{
-  EEPROM.put(address, data);
 }

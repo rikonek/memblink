@@ -28,7 +28,7 @@ enum
 };
 #define NUMBER_OF_GAMES __MAX_GAME
 
-#define SCORE_PLAYER_LENGTH_NAME 20
+#define SCORE_PLAYER_LENGTH_NAME 9
 
 #define EEPROM_START 0
 

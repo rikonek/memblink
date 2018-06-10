@@ -13,6 +13,8 @@
 #define LANG_THE_BEST_PADDING 0
 #define LANG_THE_BEST_TIME "Czas" // The best time
 #define LANG_THE_BEST_TIME_PADDING 5
+#define LANG_THE_BEST_PLAYER "Gracz" // Player
+#define LANG_THE_BEST_PLAYER_PADDING 4
 #define LANG_GAME_OVER "Koniec gry!" // Game over!
 #define LANG_GAME_OVER_PADDING 4
 //#define LANG_GAME_OVER_LOST "Przegrales!" // You lost!
@@ -26,6 +28,8 @@
 #define LANG_READY_PADDING 6
 #define LANG_START "START!" // Start!
 #define LANG_START_PADDING 7
+#define LANG_ENTER_YOUR_NAME "Podaj swoje imie" // Enter your name
+#define LANG_ENTER_YOUR_NAME_PADDING 2
 
 #define LANG_GAME1_NAME "Pamiec" // Memory
 #define LANG_GAME1_NAME_PADDING 7

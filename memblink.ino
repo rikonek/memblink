@@ -13,7 +13,7 @@ typedef struct theBest
 {
   uint8_t score=0;
   unsigned long time=0;
-  char player[SCORE_PLAYER_LENGTH_NAME]={""};
+  char player[SCORE_PLAYER_LENGTH_NAME]="";
 } theBest;
 
 typedef struct theScore
@@ -51,7 +51,6 @@ void setup() {
 
 void loop() {
   int8_t game=-1;
-//  char player[20]="Test";
 
   allLedOff();
   for(uint8_t i=0; i<NUMBER_OF_GAMES; i++)
