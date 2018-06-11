@@ -22,3 +22,19 @@ void writeGameScore(uint8_t game_number, theBest data)
     s.game[game_number] = data;
     writeScore(s);
 }
+
+void clearGameScore(uint8_t game_number, theBest data)
+{
+  writeGameScore(game_number, data);
+
+#if DEBUG
+  Serial.println("Cleared!");
+#endif
+
+  lcd.clear();
+  lcd.setCursor(LANG_CLEARED_PADDING, 1);
+  lcd.print(LANG_CLEARED);
+
+  delay(1000);
+}
+

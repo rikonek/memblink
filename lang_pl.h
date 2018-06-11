@@ -34,4 +34,7 @@
 #define LANG_GAME1_NAME "Pamiec" // Memory
 #define LANG_GAME1_NAME_PADDING 7
 
+#define LANG_GAME2_NAME "Refleks" // Reflex
+#define LANG_GAME2_NAME_PADDING 6
+
 #endif

@@ -2,8 +2,8 @@
 #define CONFIG_H
 
 #define USED_BUTTON 8 // max 32
-#define BUTTON_PIN 16,14,12,10,8,6,4,2,0
-#define LED_PIN 17,15,13,11,9,7,5,3,1
+#define BUTTON_PIN 16, 14, 12, 10, 8, 6, 4, 2, 0
+#define LED_PIN 17, 15, 13, 11, 9, 7, 5, 3, 1
 
 //#define SDA_PIN A4
 //#define SCL_PIN A5
@@ -20,10 +20,12 @@
 #define LCD_BACKLIGHT_POL POSITIVE
 
 #define GAME_MEMORY_SEQUENCE 100 // max 255
+#define GAME_REFLEX_SEQUENCE 10
 
 enum
 {
     NO_GAME_1,
+    NO_GAME_2,
     __MAX_GAME
 };
 #define NUMBER_OF_GAMES __MAX_GAME
