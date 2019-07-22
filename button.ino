@@ -6,9 +6,7 @@ int8_t readButton()
     {
       if (digitalRead(array_button[i]) == LOW)
       {
-        while (digitalRead(array_button[i]) == LOW) // hack for push button delay
-        {
-        }
+        while (digitalRead(array_button[i]) == LOW); // hack for push button delay
         delay(100);
         return i;
       }
@@ -34,43 +32,33 @@ uint8_t cursorButton()
   uint8_t pushed = 0;
   while (pushed == 0)
   {
-    if (digitalRead(array_button[USED_BUTTON - 5]) == LOW)
+    if (digitalRead(array_button[BUTTON_UP]) == LOW)
     {
-      while (digitalRead(array_button[USED_BUTTON - 5]) == LOW)
-      {
-      }
+      while (digitalRead(array_button[BUTTON_UP]) == LOW);
       delay(100);
       pushed = 1; // up
     }
-    else if (digitalRead(array_button[USED_BUTTON - 4]) == LOW)
+    else if (digitalRead(array_button[BUTTON_DOWN]) == LOW)
     {
-      while (digitalRead(array_button[USED_BUTTON - 4]) == LOW)
-      {
-      }
+      while (digitalRead(array_button[BUTTON_DOWN]) == LOW);
       delay(100);
       pushed = 2; // down
     }
-    else if (digitalRead(array_button[USED_BUTTON - 3]) == LOW)
+    else if (digitalRead(array_button[BUTTON_BACK]) == LOW)
     {
-      while (digitalRead(array_button[USED_BUTTON - 3]) == LOW)
-      {
-      }
+      while (digitalRead(array_button[BUTTON_BACK]) == LOW);
       delay(100);
       pushed = 3; // back
     }
-    else if (digitalRead(array_button[USED_BUTTON - 2]) == LOW)
+    else if (digitalRead(array_button[BUTTON_FORWARD]) == LOW)
     {
-      while (digitalRead(array_button[USED_BUTTON - 2]) == LOW)
-      {
-      }
+      while (digitalRead(array_button[BUTTON_FORWARD]) == LOW);
       delay(100);
       pushed = 4; // forward
     }
-    else if (digitalRead(array_button[USED_BUTTON - 1]) == LOW)
+    else if (digitalRead(array_button[BUTTON_ENTER]) == LOW)
     {
-      while (digitalRead(array_button[USED_BUTTON - 1]) == LOW)
-      {
-      }
+      while (digitalRead(array_button[BUTTON_ENTER]) == LOW);
       delay(100);
       pushed = 5; // enter
     }

@@ -5,6 +5,12 @@
 #define BUTTON_PIN 16, 14, 12, 10, 8, 6, 4, 2, 0
 #define LED_PIN 17, 15, 13, 11, 9, 7, 5, 3, 1
 
+#define BUTTON_UP 0
+#define BUTTON_DOWN 1
+#define BUTTON_BACK 2
+#define BUTTON_FORWARD 3
+#define BUTTON_ENTER 4
+
 //#define SDA_PIN A4
 //#define SCL_PIN A5
 

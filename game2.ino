@@ -1,4 +1,4 @@
-void runG2() // Game 2 (reflex) - player 1
+bool runG2() // Game 2 (reflex) - player 1
 {
     if (resetButton())
     {

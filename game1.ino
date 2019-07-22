@@ -1,4 +1,4 @@
-void runG1() // Game 1 (memory) - player 1
+bool runG1() // Game 1 (memory) - player 1
 {
   if (resetButton())
   {
