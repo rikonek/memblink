@@ -3,11 +3,13 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <EEPROM.h>
+#include <Bounce2.h>
 
 const unsigned int array_button[] = {BUTTON_PIN};
 const unsigned int array_led[] = {LED_PIN};
 
 LiquidCrystal_I2C lcd(LCD_ADDR, LCD_EN, LCD_RW, LCD_RS, LCD_D4, LCD_D5, LCD_D6, LCD_D7, LCD_BACKLIGHT_PIN, LCD_BACKLIGHT_POL);
+Bounce *btn[USED_BUTTON];
 
 typedef struct theBest
 {
@@ -47,6 +49,9 @@ void setup()
   for (uint8_t i = 0; i < USED_BUTTON; i++)
   {
     pinMode(array_button[i], INPUT_PULLUP);
+    btn[i] = new Bounce();
+    btn[i]->attach(array_button[i]);
+    btn[i]->interval(25);
   }
 }
 

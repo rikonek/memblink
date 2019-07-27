@@ -4,10 +4,9 @@ int8_t readButton()
   {
     for (uint8_t i = 0; i < USED_BUTTON; i++)
     {
-      if (digitalRead(array_button[i]) == LOW)
+      btn[i]->update();
+      if (btn[i]->fell())
       {
-        while (digitalRead(array_button[i]) == LOW); // hack for push button delay
-        delay(100);
         return i;
       }
     }
@@ -32,42 +31,31 @@ uint8_t cursorButton()
   uint8_t pushed = 0;
   while (pushed == 0)
   {
-    if (digitalRead(array_button[BUTTON_UP]) == LOW)
+    btn[BUTTON_UP]->update();
+    btn[BUTTON_DOWN]->update();
+    btn[BUTTON_BACK]->update();
+    btn[BUTTON_FORWARD]->update();
+    btn[BUTTON_ENTER]->update();
+    if (btn[BUTTON_UP]->fell())
     {
-      while (digitalRead(array_button[BUTTON_UP]) == LOW);
-      delay(100);
       pushed = 1; // up
     }
-    else if (digitalRead(array_button[BUTTON_DOWN]) == LOW)
+    else if (btn[BUTTON_DOWN]->fell())
     {
-      while (digitalRead(array_button[BUTTON_DOWN]) == LOW);
-      delay(100);
       pushed = 2; // down
     }
-    else if (digitalRead(array_button[BUTTON_BACK]) == LOW)
+    else if (btn[BUTTON_BACK]->fell())
     {
-      while (digitalRead(array_button[BUTTON_BACK]) == LOW);
-      delay(100);
       pushed = 3; // back
     }
-    else if (digitalRead(array_button[BUTTON_FORWARD]) == LOW)
+    else if (btn[BUTTON_FORWARD]->fell())
     {
-      while (digitalRead(array_button[BUTTON_FORWARD]) == LOW);
-      delay(100);
       pushed = 4; // forward
     }
-    else if (digitalRead(array_button[BUTTON_ENTER]) == LOW)
+    else if (btn[BUTTON_ENTER]->fell())
     {
-      while (digitalRead(array_button[BUTTON_ENTER]) == LOW);
-      delay(100);
       pushed = 5; // enter
     }
-
-    //    bool up=digitalRead(array_button[USED_BUTTON-5]) ? 0 : 1;
-    //    bool down=digitalRead(array_button[USED_BUTTON-4]) ? 0 : 1;
-    //    bool back=digitalRead(array_button[USED_BUTTON-3]) ? 0 : 1;
-    //    bool forward=digitalRead(array_button[USED_BUTTON-2]) ? 0 : 1;
-    //    enter=digitalRead(array_button[USED_BUTTON-1]) ? 0 : 1;
   }
   return pushed;
 }
